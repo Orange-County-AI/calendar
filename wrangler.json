@@ -10,5 +10,10 @@
   "upload_source_maps": true,
   "assets": {
     "not_found_handling": "single-page-application"
+  },
+  "vars": {
+    "ORGANIZATION_ID": "144931676449",
+    "ORGANIZER_ID": "110809527771",
+    "WINDMILL_URL": "https://windmill.knowsuchagency.com/api/w/default/jobs/run_wait_result/p/u/stephan/get_oc_ai_eventbrite_events"
   }
 }
