@@ -81,11 +81,11 @@ function App() {
 
   return (
     <div className="container mx-auto p-6 max-w-7xl">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-900">OCAI Events</h1>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">OCAI Events</h1>
         <button
           onClick={handleSubscribeCalendar}
-          className="btn btn-primary btn-lg gap-2"
+          className="btn btn-primary btn-sm sm:btn-lg gap-2 self-start sm:self-auto"
           title="Subscribe to calendar feed"
         >
           📅 Subscribe to Calendar
