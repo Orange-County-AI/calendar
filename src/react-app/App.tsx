@@ -11,11 +11,43 @@ interface Event {
   id: string;
   name: {
     text: string;
+    html: string;
   };
   start: {
     local: string;
+    utc: string;
+    timezone: string;
+  };
+  end: {
+    local: string;
+    utc: string;
+    timezone: string;
   };
   url: string;
+  logo?: {
+    id: string;
+    url: string;
+    original: {
+      url: string;
+      width: number;
+      height: number;
+    };
+    edge_color?: string;
+    aspect_ratio?: string;
+  };
+  summary?: string;
+  description: {
+    text: string;
+    html: string;
+  };
+  venue_id?: string;
+  capacity?: number;
+  is_free: boolean;
+  status: string;
+  currency?: string;
+  online_event: boolean;
+  organizer_id: string;
+  organization_id: string;
 }
 
 function App() {
@@ -41,7 +73,9 @@ function App() {
       const data = await response.json();
       setEvents(data.events || []);
     } catch (error) {
-      setEventsError(error instanceof Error ? error.message : "Failed to fetch events");
+      setEventsError(
+        error instanceof Error ? error.message : "Failed to fetch events"
+      );
     } finally {
       setEventsLoading(false);
     }
@@ -98,22 +132,21 @@ function App() {
         <button
           onClick={() => {
             fetch("/api/env")
-              .then((res) => res.json() as Promise<{
-                organizationId: string;
-                organizerId: string;
-              }>)
+              .then(
+                (res) =>
+                  res.json() as Promise<{
+                    organizationId: string;
+                    organizerId: string;
+                  }>
+              )
               .then((data) => setEnvVars(data));
           }}
           aria-label="get environment variables"
         >
           Fetch Environment Variables
         </button>
-        <p>
-          Organization ID: {envVars.organizationId}
-        </p>
-        <p>
-          Organizer ID: {envVars.organizerId}
-        </p>
+        <p>Organization ID: {envVars.organizationId}</p>
+        <p>Organizer ID: {envVars.organizerId}</p>
       </div>
       <div className="card">
         <h2>Eventbrite Events</h2>
@@ -124,12 +157,152 @@ function App() {
         {events.length > 0 && (
           <div style={{ marginTop: "20px", textAlign: "left" }}>
             {events.map((event) => (
-              <div key={event.id} style={{ marginBottom: "15px", padding: "10px", border: "1px solid #ccc", borderRadius: "5px" }}>
-                <h3>{event.name.text}</h3>
-                <p>Date: {new Date(event.start.local).toLocaleString()}</p>
-                <a href={event.url} target="_blank" rel="noopener noreferrer">
-                  View on Eventbrite
-                </a>
+              <div
+                key={event.id}
+                style={{
+                  marginBottom: "20px",
+                  padding: "20px",
+                  border: "1px solid #ddd",
+                  borderRadius: "10px",
+                  backgroundColor: "#f9f9f9",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "20px",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  {event.logo && (
+                    <div style={{ flexShrink: 0 }}>
+                      <img
+                        src={event.logo.url}
+                        alt={`${event.name.text} logo`}
+                        style={{
+                          width: "150px",
+                          height: "auto",
+                          borderRadius: "8px",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
+                  )}
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ margin: "0 0 10px 0", color: "#333" }}>
+                      {event.name.text}
+                    </h3>
+
+                    {event.summary && (
+                      <p
+                        style={{
+                          margin: "0 0 15px 0",
+                          fontStyle: "italic",
+                          color: "#666",
+                          fontSize: "14px",
+                        }}
+                      >
+                        {event.summary}
+                      </p>
+                    )}
+
+                    <div style={{ marginBottom: "10px" }}>
+                      <strong>📅 Start:</strong>{" "}
+                      {new Date(event.start.local).toLocaleString()}
+                      <br />
+                      <strong>🏁 End:</strong>{" "}
+                      {new Date(event.end.local).toLocaleString()}
+                      <br />
+                      <strong>🌍 Timezone:</strong> {event.start.timezone}
+                    </div>
+
+                    <div style={{ marginBottom: "10px" }}>
+                      <span
+                        style={{
+                          display: "inline-block",
+                          padding: "4px 8px",
+                          backgroundColor: event.is_free
+                            ? "#4CAF50"
+                            : "#FF9800",
+                          color: "white",
+                          borderRadius: "4px",
+                          fontSize: "12px",
+                          marginRight: "10px",
+                        }}
+                      >
+                        {event.is_free ? "FREE" : "PAID"}
+                      </span>
+
+                      <span
+                        style={{
+                          display: "inline-block",
+                          padding: "4px 8px",
+                          backgroundColor: event.online_event
+                            ? "#2196F3"
+                            : "#9C27B0",
+                          color: "white",
+                          borderRadius: "4px",
+                          fontSize: "12px",
+                          marginRight: "10px",
+                        }}
+                      >
+                        {event.online_event ? "ONLINE" : "IN-PERSON"}
+                      </span>
+
+                      <span
+                        style={{
+                          display: "inline-block",
+                          padding: "4px 8px",
+                          backgroundColor: "#607D8B",
+                          color: "white",
+                          borderRadius: "4px",
+                          fontSize: "12px",
+                        }}
+                      >
+                        {event.status.toUpperCase()}
+                      </span>
+                    </div>
+
+                    {event.capacity && (
+                      <p style={{ margin: "5px 0", fontSize: "14px" }}>
+                        <strong>👥 Capacity:</strong> {event.capacity} attendees
+                      </p>
+                    )}
+
+                    {event.description && event.description.text && (
+                      <p
+                        style={{
+                          margin: "10px 0",
+                          fontSize: "14px",
+                          color: "#555",
+                          lineHeight: "1.4",
+                        }}
+                      >
+                        <strong>Description:</strong> {event.description.text}
+                      </p>
+                    )}
+
+                    <a
+                      href={event.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: "inline-block",
+                        marginTop: "10px",
+                        padding: "8px 16px",
+                        backgroundColor: "#FF6600",
+                        color: "white",
+                        textDecoration: "none",
+                        borderRadius: "5px",
+                        fontSize: "14px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      View on Eventbrite →
+                    </a>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

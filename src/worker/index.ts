@@ -11,11 +11,43 @@ interface EventbriteResponse {
     id: string;
     name: {
       text: string;
+      html: string;
     };
     start: {
       local: string;
+      utc: string;
+      timezone: string;
+    };
+    end: {
+      local: string;
+      utc: string;
+      timezone: string;
     };
     url: string;
+    logo?: {
+      id: string;
+      url: string;
+      original: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      edge_color?: string;
+      aspect_ratio?: string;
+    };
+    summary?: string;
+    description: {
+      text: string;
+      html: string;
+    };
+    venue_id?: string;
+    capacity?: number;
+    is_free: boolean;
+    status: string;
+    currency?: string;
+    online_event: boolean;
+    organizer_id: string;
+    organization_id: string;
   }>;
   pagination: {
     page_number: number;
