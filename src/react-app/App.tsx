@@ -139,15 +139,15 @@ function App() {
               className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 aspect-square flex flex-col"
             >
               {/* Logo at top of card */}
-              <div className="flex-shrink-0 h-48 p-4 flex items-center justify-center bg-gray-50 rounded-t-2xl">
+              <div className="flex-shrink-0 h-48 overflow-hidden rounded-t-2xl">
                 {event.logo ? (
                   <img
                     src={event.logo.url}
                     alt={`${event.name.text} logo`}
-                    className="max-h-full max-w-full object-contain"
+                    className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center">
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                     <span className="text-4xl">📅</span>
                   </div>
                 )}
