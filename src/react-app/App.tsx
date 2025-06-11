@@ -136,7 +136,7 @@ function App() {
           {events.map((event) => (
             <div
               key={event.id}
-              className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 aspect-square flex flex-col"
+              className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 h-[420px] flex flex-col"
             >
               {/* Logo at top of card */}
               <div className="flex-shrink-0 h-48 overflow-hidden rounded-t-2xl">
