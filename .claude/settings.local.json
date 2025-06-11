@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(bun run lint:*)"
+      "Bash(bun run lint:*)",
+      "Bash(bun run check:*)"
     ],
     "deny": []
   }
