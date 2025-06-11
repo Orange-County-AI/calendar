@@ -172,6 +172,13 @@ function generateICS(events: EventbriteResponse['events']): string {
     lines.push(`DTSTAMP:${formatDateToICS(new Date())}`);
     lines.push(`ORGANIZER:CN=Organization ${event.organization_id}`);
     
+    // Add 90-minute reminder
+    lines.push("BEGIN:VALARM");
+    lines.push("TRIGGER:-PT90M");
+    lines.push("ACTION:DISPLAY");
+    lines.push(`DESCRIPTION:Reminder: ${escapeICS(event.name.text)}`);
+    lines.push("END:VALARM");
+    
     lines.push("END:VEVENT");
   });
   
