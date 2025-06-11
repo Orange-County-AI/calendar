@@ -72,3 +72,6 @@ No test framework is currently configured. When adding tests, consider installin
 - Use Web APIs instead of Node.js APIs
 - Keep bundle size minimal for optimal edge performance
 - Leverage Cloudflare's global network for low latency
+
+### Frontend Notes
+- We're using daisyui via CDN

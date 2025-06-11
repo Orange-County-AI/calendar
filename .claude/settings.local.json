@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(bun run lint:*)",
-      "Bash(bun run check:*)"
+      "Bash(bun run check:*)",
+      "Bash(bunx:*)",
+      "Bash(bun add:*)",
+      "Bash(bun run:*)",
+      "Bash(npx:*)"
     ],
     "deny": []
   }
