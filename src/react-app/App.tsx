@@ -10,6 +10,10 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
   const [name, setName] = useState("unknown");
+  const [envVars, setEnvVars] = useState<{
+    organizationId: string;
+    organizerId: string;
+  }>({ organizationId: "loading...", organizerId: "loading..." });
 
   return (
     <>
@@ -56,6 +60,27 @@ function App() {
         </button>
         <p>
           Edit <code>worker/index.ts</code> to change the name
+        </p>
+      </div>
+      <div className="card">
+        <button
+          onClick={() => {
+            fetch("/api/env")
+              .then((res) => res.json() as Promise<{
+                organizationId: string;
+                organizerId: string;
+              }>)
+              .then((data) => setEnvVars(data));
+          }}
+          aria-label="get environment variables"
+        >
+          Fetch Environment Variables
+        </button>
+        <p>
+          Organization ID: {envVars.organizationId}
+        </p>
+        <p>
+          Organizer ID: {envVars.organizerId}
         </p>
       </div>
       <p className="read-the-docs">Click on the logos to learn more</p>
