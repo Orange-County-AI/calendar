@@ -75,9 +75,35 @@ function App() {
     fetchEvents();
   }, []);
 
+  const handleSubscribeCalendar = () => {
+    const webcalUrl = `webcal://${window.location.host}/api/events.ics`;
+    window.location.href = webcalUrl;
+  };
+
   return (
     <div style={{ padding: "20px", maxWidth: "1200px", margin: "0 auto" }}>
-      <h1>OCAI Events</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+        <h1 style={{ margin: 0 }}>OCAI Events</h1>
+        <button
+          onClick={handleSubscribeCalendar}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            fontSize: "16px",
+            fontWeight: "bold",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
+          title="Subscribe to calendar feed"
+        >
+          📅 Subscribe to Calendar
+        </button>
+      </div>
       
       {eventsLoading && <p>Loading events...</p>}
       {eventsError && <p style={{ color: "red" }}>Error: {eventsError}</p>}
