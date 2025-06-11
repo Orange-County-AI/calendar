@@ -8,6 +8,7 @@ echo "🚀 Setting up OCAI Calendar development environment..."
 # Install project dependencies
 echo "📦 Installing dependencies with Bun..."
 bun install
+bun install -g @anthropic-ai/claude-code
 
 # Verify installation
 echo "✅ Verifying installation..."
