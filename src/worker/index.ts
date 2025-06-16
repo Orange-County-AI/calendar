@@ -160,6 +160,12 @@ function generateICS(events: EventbriteResponse["events"]): string {
   lines.push("CALSCALE:GREGORIAN");
   lines.push("METHOD:PUBLISH");
 
+  // Calendar metadata
+  lines.push("X-WR-CALNAME:Orange County AI");
+  lines.push("X-WR-CALDESC:Orange County AI events and meetups");
+  lines.push("X-APPLE-CALENDAR-COLOR:#FF8C00");
+  lines.push("X-OUTLOOK-COLOR:#FF8C00");
+
   // Add each event
   events.forEach((event) => {
     lines.push("BEGIN:VEVENT");
